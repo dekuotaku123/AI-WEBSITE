@@ -1,5 +1,6 @@
 import React from "react";
 import { appPlans } from "../assets/assets";
+import Footer from "../components/Footer";
 interface Plan {
   id: string;
   name: string;
@@ -72,10 +73,16 @@ const Pricing = () => {
             ))}
           </div>
         </div>
-        <p>
-          Project<span>Creation / Revision</span>consume<span>5 credits</span>. You can purchase more credits to create more projects.
+        <p className="text-gray-400 text-sm max-w-md mx-auto mt-3 leading-relaxed text-center">
+          Project
+          <span className="text-white font-medium"> creation / revision </span>
+          consumes
+          <span className="text-white font-semibold"> 5 credits</span>.
+          <br />
+          Purchase more credits to create additional projects.
         </p>
       </div>
+      <Footer />
     </>
   );
 };
