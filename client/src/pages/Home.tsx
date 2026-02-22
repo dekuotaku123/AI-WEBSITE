@@ -8,7 +8,8 @@ const Home = () => {
   const onSubmitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    //Simulate API caall
+
+    //Simulate API call
     setTimeout(() => {
       setLoading(false);
     }, 3000);

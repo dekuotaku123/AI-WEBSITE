@@ -20,7 +20,9 @@ import {
   dummyVersion,
 } from "../assets/assets";
 import Sidebar from "../components/Sidebar";
-import ProjectPreview, { type ProjectPreviewRef } from "../components/ProjectPreview";
+import ProjectPreview, {
+  type ProjectPreviewRef,
+} from "../components/ProjectPreview";
 
 const Projects = () => {
   const { projectId } = useParams();
@@ -56,7 +58,19 @@ const Projects = () => {
   };
 
   const saveProject = async () => {};
-  const downloadCode = () => {};
+  const downloadCode = () => {
+    const code = previewRef.current?.getCode() || project?.current_code;
+    if (!code) {
+      if (isGenerating) return;
+      return;
+    }
+    const element = document.createElement("a");
+    const file = new Blob([code], { type: "text/html" });
+    element.href = URL.createObjectURL(file);
+    element.download = "index.html";
+    document.body.appendChild(element);
+    element.click();
+  };
   const togglePushblish = async () => {};
 
   useEffect(() => {

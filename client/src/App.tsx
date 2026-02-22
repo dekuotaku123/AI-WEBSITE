@@ -7,13 +7,20 @@ import MyProjects from "./pages/MyProjects";
 import View from "./pages/View";
 import Navbar from "./components/Navbar";
 import Projects from "./pages/Projects";
+import { Toaster } from "sonner";
+import AuthPage from "./pages/auth/AuthPage";
+import Settings from "./pages/Settings";
 
 export default function App() {
-  const {pathname}=useLocation()
-  const hideNavbar = pathname.startsWith('/projects/') && pathname!=='/projects' ||pathname.startsWith('/view/') || pathname.startsWith('/preview/')
+  const { pathname } = useLocation();
+  const hideNavbar =
+    (pathname.startsWith("/projects/") && pathname !== "/projects") ||
+    pathname.startsWith("/view/") ||
+    pathname.startsWith("/preview/");
   return (
     <div>
-      {!hideNavbar && <Navbar/>}
+      <Toaster />
+      {!hideNavbar && <Navbar />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/pricing" element={<Pricing />} />
@@ -24,6 +31,8 @@ export default function App() {
         <Route path="/preview/:projectId/:versioId" element={<Preview />} />
         <Route path="/community" element={<Community />} />
         <Route path="/view/:projectId" element={<View />} />
+        <Route path="/auth/:pathname" element={<AuthPage />} />
+        <Route path="/account/settings" element={<Settings />} />
       </Routes>
     </div>
   );
