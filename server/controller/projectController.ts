@@ -228,24 +228,23 @@ export const deleteProject = async (req: Request, res: Response) => {
   }
 };
 
-
 //controller for getting project preview
 export const getProjectPreview = async (req: Request, res: Response) => {
   try {
     const userId = req.userId;
     const projectId = req.params.projectId as string;
 
-    if(!userId){
-        return res.status(401).json({ message: "Unauthorized" });
+    if (!userId) {
+      return res.status(401).json({ message: "Unauthorized" });
     }
-    
-    const project = await prisma.websiteProject.findFirst({
-        where:{id:projectId,userId},
-        include:{versions:true}
-    })
 
-    if(!project){
-        return res.status(404).json({ message: "Project not found" });
+    const project = await prisma.websiteProject.findFirst({
+      where: { id: projectId, userId },
+      include: { versions: true },
+    });
+
+    if (!project) {
+      return res.status(404).json({ message: "Project not found" });
     }
 
     res.json({ project });
@@ -255,4 +254,32 @@ export const getProjectPreview = async (req: Request, res: Response) => {
   }
 };
 
-//controller
+//controller to get published
+export const getPublishedProjects = async (req: Request, res: Response) => {
+  try {
+    const projects = await prisma.websiteProject.findMany({
+      where: { isPublished: true },
+      include: { user: true },
+    });
+
+    res.json({ projects });
+  } catch (error: any) {
+    console.log(error.code || error.message);
+    res.status(500).json({ message: error.message });
+  }
+};
+
+//get single project by id
+export const getProjectById = async (req: Request, res: Response) => {
+  try {
+    const projects = await prisma.websiteProject.findMany({
+      where: { isPublished: true },
+      include: { user: true },
+    });
+
+    res.json({ projects });
+  } catch (error: any) {
+    console.log(error.code || error.message);
+    res.status(500).json({ message: error.message });
+  }
+};
