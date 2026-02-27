@@ -17,7 +17,6 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 // 2. Auth handler (must be before express.json)
-// CHANGED: Replaced app.all with app.use to bypass the Express v5 wildcard crash
 app.use("/api/auth", toNodeHandler(auth));
 
 // 3. Body parser once
